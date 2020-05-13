@@ -1,0 +1,61 @@
+
+{% extends 'index.html' %}
+{% block all_questions %}
+
+<body>
+
+    <h2>List of questions</h2>
+
+            <div class="dropdown">
+                <form action="/" method="POST">
+                    <label for="sort">Sort by:</label><br>
+                    <select id="sort" name="sort" class="form-control form-control-sm">
+        {#                <option value="id">Id</option>#}
+                        <option {% if sort_by == 'submission_time' %}selected{% endif %} value="submission_time">Submission Time</option>
+                        <option {% if sort_by == 'view_number' %}selected{% endif %} value="view_number">View Number</option>
+                        <option {% if sort_by == 'vote_number' %}selected{% endif %} value="vote_number">Vote Number</option>
+                        <option {% if sort_by == 'message' %}selected{% endif %} value="message">Message</option>
+                        <option {% if sort_by == 'title' %}selected{% endif %} value="title">Title</option>
+                    </select>
+                    <label for="direction">Direction:</label><br>
+                    <select name="direction" class="form-control form-control-sm">
+                        <option {% if direction == 'asc' %}selected{% endif %} value="asc">Ascending</option>
+                        <option {% if direction == 'desc' %}selected{% endif %} value="desc">Descending</option>
+                    </select><br>
+                    <button type="submit" >Apply</button>
+                </form>
+            </div>
+
+        <table class="table">
+                <thead class="thead-dark">
+{#                    <th><h4>ID</h4></th>#}
+                    <th><h4>Submission time</h4></th>
+                    <th><h4>View number</h4></th>
+                    <th colspan="3"><h4>Vote number</h4></th>
+                    <th><h4>Title</h4></th>
+                    <th><h4>Message</h4></th>
+                    <th><h4>Image</h4></th>
+                </thead>
+
+                {% for question in questions%}
+                    <tbody>
+                        <tr>
+{#                            <td> {{ question['id'] }}</td>#}
+                            <td> {{ question['submission_time'] }}</td>
+                            <td> {{ question['view_number'] }}</td>
+                            <td> {{ question['vote_number'] }}</td>
+                            <td><button type="button"><a href="/question/{{question['id']}}/vote_up">VOTE UP</a></td>
+                            <td><button><type="button"><a href="/question/{{question['id']}}/vote_down">VOTE DOWN</a></button></td>
+                            <td> <a href="/question/{{ question['id'] }}">{{ question['title'] }}</a></td>
+                            <td> {{ question['message'] }}</td>
+                            <td> <img src="{{ question['image'] }}" height="80"></td>
+                         </tr>
+                    </tbody>
+                        {% endfor %}
+
+        </table>
+        <button><a href="/add_new_question">Add new question</a></button>
+
+
+</body>
+{% endblock %}

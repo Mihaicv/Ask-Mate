@@ -1,0 +1,15 @@
+{% extends 'index.html' %}
+{% block new_qu_comment %}
+<body>
+    <h2>Add new question comment</h2>
+
+
+        {% for question in questions %}
+        <form action="/question/{{ question.id }}/new-comment" , method="POST">
+        {% endfor %}
+        <label for="message">Message</label><br>
+        <textarea id="message"  name="message" placeholder="new comment" rows="10" cols="40"></textarea><br><br>
+        <button type="submit">Send</button>
+    </form>
+</body>
+{% endblock %}

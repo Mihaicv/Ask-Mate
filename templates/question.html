@@ -1,0 +1,74 @@
+{% extends 'index.html' %}
+{% block question %}
+<body>
+        <h3>Question:{{ question['title'] }}</h3>
+     <table class="table">
+         <tr>
+             <td>Submission time</td>
+             <td>View number</td>
+             <td>Vote number</td>
+             <th>Title</th>
+             <th>Mesage</th>
+             <th>Image</th>
+         </tr>
+         <tr>
+             <td> {{ question['submission_time'] }}</td>
+             <td> {{ question['view_number'] }}</td>
+             <td> {{ question['vote_number'] }}</td>
+             <th>{{ question['title'] }}</th>
+             <th>{{ question['message'] }}</th>
+             <th><img src="{{ question['image'] }}" height="100"></th><br><br><br>
+     </table>
+     <button type="button"><a href="/question/{{question['id']}}/edit"> Edit question</a></button>
+     <button type="button"><a href="/question/{{question['id']}}/delete"> Delete question</a></button><br>
+        <hr>
+     <div><h4>Comment question</h4></div>
+     <table class="table">
+         <tr>
+             <td>Submission time</td>
+             <td>Message</td>
+         </tr>
+            {%for item in comment_id_question%}
+
+        <tr>
+                <th>{{item.submission_time}}<button type="button"><a href="/comments/{{ item['id'] }}/delete"onclick="return confirm('Are you sure you want to delete this item?');">Delete question comment</a></button> </th>
+                <th>{{item.message}}</button></th>
+            {%endfor%}
+
+        </tr>
+
+     </table>
+        <button type="button"><a href="/question/{{ question['id'] }}/new-comment">Add question comment</a> </button>
+
+
+
+
+
+
+
+
+
+        <hr>
+
+    <div><h4>Answers</h4></div>
+    <table class="table">
+        <tr>
+            <th>Submission time</th>
+             <th>Message</th>
+            <th>Vote number</th>
+             <th>Image</th>
+        </tr>
+            {%for item in answer_by_question_id%}
+        <tr>
+            <th>{{item.submission_time}}</th>
+            <th>{{item.message}}</th>
+            <th>{{item.vote_number}}<button> <a href="/answer/{{item['id']}}/vote_up">VOTE UP</a></button><button> <a href="/answer/{{item['id']}}/vote_down">VOTE DOWN</a></button><button> <a href="/answer/{{item['id']}}/delete">DELETE</a></button></th>
+            <th><img src="{{item['image']}}" height="60"></th>
+            {%endfor%}
+        </tr>
+    </table>
+    <button type="button"><a href="/question/{{question['id']}}/new_answer"'> Add new answer</a></button>
+
+
+</body>
+{% endblock %}
