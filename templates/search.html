@@ -1,0 +1,47 @@
+{% extends 'index.html' %}
+{% block search %}
+<body>
+        <h3>Search results</h3>
+         <table class="table">
+                <thead class="thead-dark">
+{#                    <th><h4>ID</h4></th>#}
+                    <th><h4>Submission time</h4></th>
+                    <th><h4>View number</h4></th>
+                    <th><h4>Vote number</h4></th>
+                    <th><h4>Title</h4></th>
+                    <th><h4>Message</h4></th>
+                    <th><h4>Image</h4></th>
+                </thead>
+
+                {% for question in search_text%}
+                    <tbody>
+                        <tr>
+{#                            <td> {{ question['id'] }}</td>#}
+                            <td> {{question.submission_time}}</td>
+                            <td> {{ question.view_number }}</td>
+                            <td> {{ question.vote_number }}</td>
+                            <td> <a href="/question/{{ question['id'] }}">{{ question.title | replace(phrase,'<mark>'+phrase+'</mark>')|safe}}</a></td>
+                            <td> {{ question.message | replace (phrase, '<mark>' + phrase + '</mark>') | safe }}</td>
+                            <td> <img src="{{ question['image'] }}" height="80"></td>
+
+                         </tr>
+                    </tbody>
+                {% endfor %}
+         </table>
+        <hr>
+         <table class="table">
+                <h3>Answers</h3>
+                    <th><h4>Submission time</h4></th>
+                    <th><h4>Message</h4</th>
+
+                        {%for item in answers%}
+                        <tr>
+                            {% if phrase in item.message %}
+                            <td>{{ item.submission_time }}</td><br>
+                            <td> {{item.message | replace (phrase, '<mark>' + phrase + '</mark>') | safe}}</td>
+                            {% endif %}
+                          {%endfor%}
+                        </tr>
+         </table>
+</body>
+{% endblock %}

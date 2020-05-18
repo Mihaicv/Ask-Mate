@@ -4,10 +4,19 @@
 
 <body>
 
-    <h2>List of questions</h2>
+   {% if not searching %}
+    <a href="/list">See all questions</a>
+    {% else %}
+    <a href="/">Back to latest questions</a>
+    {% endif %}
 
+            <form action="/search", method="GET">
+                <label for="search"></label>
+                <input id="search" type="text" name="search_text" placeholder="what you looking for"</input>
+                <button type="submit">Search</button>
+            </form>
             <div class="dropdown">
-                <form action="/" method="POST">
+                <form action="/list" method="POST">
                     <label for="sort">Sort by:</label><br>
                     <select id="sort" name="sort" class="form-control form-control-sm">
         {#                <option value="id">Id</option>#}
@@ -45,7 +54,7 @@
                             <td> {{ question['view_number'] }}</td>
                             <td> {{ question['vote_number'] }}</td>
                             <td><button type="button"><a href="/question/{{question['id']}}/vote_up">VOTE UP</a></td>
-                            <td><button><type="button"><a href="/question/{{question['id']}}/vote_down">VOTE DOWN</a></button></td>
+                            <td><button type="button"><a href="/question/{{question['id']}}/vote_down">VOTE DOWN</a></button></td>
                             <td> <a href="/question/{{ question['id'] }}">{{ question['title'] }}</a></td>
                             <td> {{ question['message'] }}</td>
                             <td> <img src="{{ question['image'] }}" height="80"></td>

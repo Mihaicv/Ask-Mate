@@ -1,0 +1,18 @@
+{% extends 'index.html' %}
+{% block edit_answer %}
+
+
+<body>
+    <form action="/answer/{{answer.id}}/edit" method="POST">
+
+       <label for="message">Message</label><br>
+       <textarea id="message"  name="message" rows="10" cols="30">{{ answer.get('message','') }}"</textarea><br><br>
+         <label for="image"> Edit image</label><br>
+       <input id="image" type="url" name="image" value="{{ answer.get('image','') }}"><br><br>
+       <button type="submit">Update answer</button>
+
+
+
+
+</body>
+{% endblock %}
