@@ -3,14 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <title style="animation: ease-in">Ask Mate</title>
+
+        <h1><a href="/">Ask Mate</h1></a><img src="https://policlinica-baiamare.ro/wp-content/uploads/2018/05/OpenGraphIntrebariFrecvente.jpg" height="50"/><h4>
+
+    <div class=jumbotron>
+
+        {% if 'email' in session%}
+            <strong>Logged in: {{session['email']}}</strong><br><br>
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="badge badge-secondary mr-2" href="/logout"> Logout</a><br>
+                </li>
+                <li class="nav-item">
+                    <a class="badge badge-secondary mr-2" href="/users">List users</a>
+                </li>
+                <li class="nav-item">
+                    <a class="badge badge-secondary" href="/tags">Page tags</a>
+                </li>
+            </ul><br>
+                <form class="example" action="/search", method="GET">
+                    <input id="search" type="text" name="search_text" placeholder="what you looking for">
+                    <button type="submit"><i class="fa fa-search"></i></button>
+                </form>
+
+
+
+    </div>
 </head>
-         <hr>
-        <h1><a href="/list">Ask Mate</h1></a><img src="https://policlinica-baiamare.ro/wp-content/uploads/2018/05/OpenGraphIntrebariFrecvente.jpg" height="50"/>
+
 <body style="background-color: gainsboro">
           <hr>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
-
+    <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/static/main.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel=“stylesheet” href=“https://use.fontawesome.com/releases/v5.5.0/css/all.css”
+          integrity=“sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU” crossorigin=“anonymous”>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     {% block all_questions %}
     {% endblock %}
 
@@ -42,12 +77,31 @@
     {% block new_comment_answer %}
     {% endblock %}
 
-     {% block tags%}
+    {% block tags%}
+    {% endblock %}
+
+    {% block users%}
+    {% endblock %}
+
+    {% block user_page%}
+    {% endblock %}
+
+    {% block tag_count%}
     {% endblock %}
 
 
+            {%else%}
+    <div style="background-color: gainsboro">
+             <br><a href="/login"> Login</a><br><br>
+            <a href="/registration">Registration</a><br><br><br><br>
+            {%endif%}
 
+       {% block login%}
+       {% endblock %}
 
+       {% block registration%}
+       {% endblock %}
+    </div>
 
 
 

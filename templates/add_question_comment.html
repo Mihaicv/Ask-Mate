@@ -1,7 +1,7 @@
 {% extends 'index.html' %}
 {% block new_qu_comment %}
-<body>
-    <h2>Add new question comment</h2>
+<body class="container pt-3">
+    <h3>Add new question comment</h3>
 
 
         {% for question in questions %}
@@ -9,7 +9,7 @@
         {% endfor %}
         <label for="message">Message</label><br>
         <textarea id="message"  name="message" placeholder="new comment" rows="10" cols="40"></textarea><br><br>
-        <button type="submit">Send</button>
+        <button class="btn btn-outline-secondary" type="submit">Send</button>
     </form>
 </body>
 {% endblock %}

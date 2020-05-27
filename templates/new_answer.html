@@ -1,7 +1,7 @@
 {% extends 'index.html' %}
 {% block new_answer %}
-<body>
-    <h2>Post new answer</h2>
+<body class="container pt-3">
+    <h3>Post new answer</h3>
     <form action="/question/{{id}}/new_answer" method="POST">
 
         <label for="message">Message</label><br>

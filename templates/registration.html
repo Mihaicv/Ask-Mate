@@ -1,0 +1,24 @@
+{% extends 'index.html' %}
+{% block registration %}
+
+<body >
+
+    {% for message in get_flashed_messages() %}
+            <h4>{{ message }}</h4>
+             {% endfor %}
+
+      <form action="/registration" method="POST">
+          <label for="email">Email</label><br>
+          <input id="email" type="email" name="email" placeholder="email"><br>
+
+          <label for="password">Password</label><br>
+          <input id="password" type="password" name="password" placeholder="confirm password"><br>
+          <label for="confirm_password">Confirm password</label><br>
+          <input id="confirm_password" type="password" name="confirm_password" placeholder="confirm password"><br><br>
+
+          <button type="submit">REGISTER</button>
+      </form>
+</body>
+</html>
+
+{% endblock %}

@@ -1,19 +1,12 @@
 {% extends 'index.html' %}
 {% block new_comment_answer%}
-<body>
-    <h2>Add answer comment</h2>
+<body class="container pt-3">
+    <h3>Add answer comment</h3>
 
         <form action="/answer/{{ answer.id }}/new-comment" method="POST">
         <label for="new_comment">Message</label><br>
         <textarea id="new_comment" name="new_comment" placeholder="new answer" rows="10" cols="40"></textarea><br>
-        <button type="submit">Add comment</button>
-
-
-
-    </form>
-
-
-
-
+        <button class="btn btn-outline-secondary" type="submit">Add comment</button>
+        </form>
 </body>
 {% endblock %}

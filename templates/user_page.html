@@ -1,0 +1,108 @@
+
+{% extends 'index.html' %}
+{% block user_page %}
+<body class="container pt-3">
+     <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th>Email user</h4></th>
+                 <th>Registration date</h4></th>
+                 <th>Asked questions</h4></th>
+                 <th>Answers</h4></th>
+                 <th>Comments</h4></th>
+                 <th>Reputation </h4></th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr>
+                <td>{{ user.email_user }}</td>
+                <td>{{ user.submission_time }}</td>
+                <td>{{ user.count_questions }}</td>
+                <td>{{ user.count_answers }}</td>
+                <td>{{ user.count_comments }}</td>
+                <td>{{ user.reputation }}</td>
+            </tr>
+        </tbody>
+        </table>
+     <hr>
+     <div class="jumbotron">
+        <table class="table">
+        <h4><strong>Question created</strong></h4>
+            <thead>
+            <tr>
+                <td><h4>Date</h4></td>
+                 <td><h4>View number</h4></td>
+                 <td><h4>Vote number</h4></td>
+                 <td><h4>Title</h4></td>
+                 <td><h4>Message</h4></td>
+                 <td><h4>image </h4></td>
+            </tr>
+        </thead>
+         <tbody>
+                {% for q in question %}
+            <tr>
+                <td>{{ q.submission_time}}</td>
+                <td>{{ q.view_number }}</td>
+                <td>{{ q.vote_number }}</td>
+                <td>{{ q.title}}</td>
+                <td>{{ q.message}}</td>
+                <th><img src="{{ q.image }}" height="100"></th>
+            </tr>
+                {% endfor %}
+        </tbody>
+        </table>
+     </div>
+     <hr>
+     <div class="jumbotron">
+        <table class="table">
+        <h4><strong>Answer created</strong></h4>
+                <thead>
+                <tr>
+                    <td><h4>Date</h4></td>
+                    <td><h4>Question</h4></td>
+                    <td><h4>Vote number</h4></td>
+                     <td><h4>Message</h4></td>
+                     <td><h4>image </h4></td>
+                </tr>
+            </thead>
+             <tbody>
+                    {% for a in answer %}
+                <tr>
+                    <td>{{ a.submission_time}}</td>
+                    <td>{{ a.title }}</td>
+                    <td>{{ a.vote_number }}</td>
+                    <td>{{ a.message}}</td>
+                    <th><img src="{{ a.image }}" height="100"></th>
+                </tr>
+                    {% endfor %}
+            </tbody>
+        </table>
+     </div>
+     <hr>
+     <div class="jumbotron">
+        <table class="table">
+        <h4><strong>Comment created</strong></h4>
+            <thead>
+            <tr>
+                <td><h4>Date</h4></td>
+                <td><h4>Question</h4></td>
+                 <td><h4>Message</h4></td>
+                 <td><h4>Edited count </h4></td>
+            </tr>
+        </thead>
+         <tbody>
+                {% for c in comment %}
+            <tr>
+                <td>{{ c.submission_time}}</td>
+                <td>{{ c.title}}</td>
+                <td>{{ c.message}}</td>
+                <td>{{ c.edited_count }}</td>
+            </tr>
+                {% endfor %}
+        </tbody>
+        </table>
+     </div>
+</body>
+
+{% endblock %}

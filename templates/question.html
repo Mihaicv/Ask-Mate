@@ -1,98 +1,94 @@
 {% extends 'index.html' %}
 {% block question %}
-<body>
-        <h3>Question:{{ question['title'] }}</h3>
+<body class="container pt-3" >
+
+        <h3>Question:<strong>{{ question['title'] }}</strong></h3>
 
         {% for message in get_flashed_messages() %}
             <h4>{{ message }}</h4>
         {% endfor %}
 
-          <button type="button"><a href="/question/{{question['id']}}/new-tag"> Add tag</a></button>
-                {% for q in question_t %}
-                    {% for tag in tags %}
-                      {% if question['id']==q.question_id and q.tag_id==tag.id  %}
+       <button type="button" class="btn btn-outline-secondary"><a href="/question/{{question['id']}}/new-tag"> Add tag</a></button>
+            {% for q in question_t %}
+                {% for tag in tags %}
+                  {% if question['id']==q.question_id and q.tag_id==tag.id  %}
 
-          <button type="button" class="btn btn-info">{{ tag.name }}<a href="/question/{{ question.id }}/tag/{{ q.tag_id }}/delete"> X</button>
-                      {% endif %}
-                    {% endfor %}
+       <button type="button" class="btn btn-info btn-sm">{{ tag.name }}<a href="/question/{{ question.id }}/tag/{{ q.tag_id }}/delete"> X</button>
+                  {% endif %}
                 {% endfor %}
-
-     <table class="table">
-         <tr>
-             <td>Submission time</td>
-             <td>View number</td>
-             <td>Vote number</td>
-             <th>Title</th>
-             <th>Mesage</th>
-             <th>Image</th>
-
-
-         </tr>
-
-         <tr>
-             <td> {{ question['submission_time'] }}</td>
-             <td> {{ question['view_number'] }}</td>
-             <td> {{ question['vote_number'] }}</td>
-             <th>{{ question['title'] }}</th>
-             <th>{{ question['message'] }}</th>
-             <th><img src="{{ question['image'] }}" height="100"></th><br><br><br>
-     </table>
-     <button type="button"><a href="/question/{{question['id']}}/edit"> Edit question</a></button>
-     <button type="button"><a href="/question/{{question['id']}}/delete"> Delete question</a></button><br>
-        <hr>
-     <div><h4>Comment question</h4></div>
-     <table class="table">
-         <tr>
-             <td>Submission time</td>
-             <td>Message</td>
-         </tr>
-            {%for item in comment_id_question%}
-
-        <tr>
-                <th>{{item.submission_time}}<button type="button"><a href="/comments/{{ item['id'] }}/delete"onclick="return confirm('Are you sure you want to delete this item?');">Delete question comment</a></button> <button type="button"><a href="/comment/{{ item['id'] }}/edit">Edit question comment</a></button>Edited:{{ item.edited_count}} times </th>
-                <th>{{item.message}}</button></th>
-
-            {%endfor%}
-
-        </tr>
-
-     </table>
-        <button type="button"><a href="/question/{{ question['id'] }}/new-comment">Add question comment</a> </button>
-
-
-
-        <hr>
-
-    <div><h4>Answers</h4></div>
-    <table class="table">
-        <tr>
-            <th>Submission time</th>
-             <th>Message</th>
-            <th>Vote number</th>
-             <th>Image</th>
-        </tr>
-            {%for item in answer_by_question_id%}
-        <tr>
-            <td>{{item.submission_time}}</td>
-            <td>{{item.message}}</td>
-            <td>{{item.vote_number}}<button> <a href="/answer/{{item['id']}}/vote_up">VOTE UP</a></button><button> <a href="/answer/{{item['id']}}/vote_down">VOTE DOWN</a></button><button> <a href="/answer/{{item['id']}}/delete">DELETE</a></button><button><a href="/answer/{{item['id']}}/edit"> EDIT ANSWER</a></button><button type="button"><a href="/answer/{{ item.id }}/new-comment">Add comment answer</a></button></td>
-            <td><img src="{{item['image']}}" height="60"></td>
-        </tr>
-
-         <tr>
-             <td>Comment answer</td>
-         </tr>
-         <tr>
-            {% for comment in tabel_comment%}
-            {% if item.id==comment.answer_id %}
-            <td>{{ comment['submission_time']}}</td>
-            <td>{{ comment['message']}}</td>
-            {% endif %}
-        </tr>
             {% endfor %}
-         {%endfor%}
-        </tr>
-    </table>
-    <button type="button"><a href="/question/{{question['id']}}/new_answer"'> Add new answer</a></button>
+       <button class="btn btn-outline-secondary " ><a href="/tags">To page tags</a></button>
+    <div class="jumbotron">
+         <table class="table">
+             <tr class="thead-dark" >
+                 <th>Submission time</th>
+                 <th>View number</th>
+                 <th>Vote number</th>
+                 <th>Title</th>
+                 <th class="col text-center">Mesage</th>
+                 <th class="col text-center">Image</th>
+             </tr>
+             <tr>
+                 <td> {{ question['submission_time'] }}</td>
+                 <td> {{ question['view_number'] }}</td>
+                 <td> {{ question['vote_number'] }}</td>
+                 <th>{{ question['title'] }}</th>
+                 <th>{{ question['message'] }}</th>
+                 <th><img src="{{ question['image'] }}" height="100"></th>
+         </table>
+         <button type="button" class="mt-4 btn btn-outline-info btn-sm"><a href="/question/{{question['id']}}/edit"> Edit question</a></button>
+         <button type="button" class="mt-4 btn btn-outline-danger btn-sm"><a href="/question/{{question['id']}}/delete"> Delete question</a></button><br>
+    </div>
+        <hr>
+   <div class="jumbotron">
+         <div><h4>Comments question</h4></div>
+         <table class="table">
+             <tr class="thead-dark">
+                 <th>Submission time</th>
+                 <th class="col text-center">Message</th>
+             </tr>
+                    {%for item in comment_id_question%}
+             <tr>
+                <th>{{item.submission_time}} </th>
+                <th>{{item.message}}<br><button type="button" class="mt-4 btn btn-outline-danger btn-sm"><a href="/comments/{{ item['id'] }}/delete"onclick="return confirm('Are you sure you want to delete this item?');">Delete question comment</a></button> <button type="button" class="mt-4 btn btn-outline-info btn-sm"><a href="/comment/{{ item['id'] }}/edit">Edit question comment</a></button>Edited:{{ item.edited_count}} times</th>
+                    {%endfor%}
+            </tr>
+         </table>
+         <button type="button" class="mt-4 btn btn-secondary btn-sm"><a href="/question/{{ question['id'] }}/new-comment">Add question comment</a> </button>
+   </div>
+    <div class="jumbotron">
+        <div><h4>Answers comment</h4></div>
+        <table class="table">
+            <tr class="thead-dark">
+                <th>Submission time</th>
+                 <th>Message</th>
+                <th>Vote number</th>
+                 <th>Image</th>
+                <hr><hr>
+
+            </tr>
+                {%for item in answer_by_question_id%}
+            <tr>
+                <td><strong>{{item.submission_time}}</strong></td>
+                <td><strong>{{item.message}}</strong></td>
+                <td>{{item.vote_number}}<br><a href="/answer/{{item['id']}}/vote_up" class="mt-4 mr-2 btn btn-primary btn-sm float-right"><i class="fa fa-thumbs-up"></i> </a> <a href="/answer/{{item['id']}}/vote_down" class="mt-4 mr-2 btn btn-danger btn-sm float-right"><i class="fa fa-thumbs-down"></i></a><button class="mt-4 mr-2 btn btn-outline-danger btn-sm"> <a href="/answer/{{item['id']}}/delete">DELETE</a></button><button class="mt-4 mr-2 btn btn-outline-info btn-sm"><a href="/answer/{{item['id']}}/edit"> EDIT ANSWER</a></button><button type="button" class="mt-4 btn btn-secondary btn-sm"><a href="/answer/{{ item.id }}/new-comment">Add comment answer</a></button></td>
+                <td><img src="{{item['image']}}" height="60"></td>
+            </tr>
+
+{##}
+{#                 <th>Comment answer</th>#}
+             <tr>
+                {% for comment in tabel_comment%}
+                {% if item.id==comment.answer_id %}
+                <td>{{ comment['submission_time']}}</td>
+                <td>{{ comment['message']}}</td>
+                {% endif %}
+            </tr>
+                {% endfor %}
+             {%endfor%}
+            </tr>
+        </table>
+        <button type="button" class="mt-4 btn btn-secondary btn-sm"><a href="/question/{{question['id']}}/new_answer"'> Add new answer</a></button>
+    </div>
 </body>
 {% endblock %}

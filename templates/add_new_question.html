@@ -1,7 +1,7 @@
 {% extends 'index.html' %}
 {% block add_new_question %}
-<body>
-    <h2>Add new question</h2>
+<body class="container pt-3">
+    <h3>Add new question</h3>
     <form action="/add_new_question" method="POST">
 
         <label for="title">Title</label><br>
@@ -13,7 +13,7 @@
         <label for="image">Image</label><br>
         <input  type="url" id="image" name="image"><br><br><br><br>
 
-        <button type="submit">Add question</button>
+        <button class="btn btn-outline-secondary" type="submit">Add question</button>
     </form>
 </body>
 {% endblock %}

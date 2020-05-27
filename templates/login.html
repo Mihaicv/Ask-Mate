@@ -1,0 +1,21 @@
+{% extends 'index.html' %}
+{% block login %}
+<body >
+
+        {% for message in get_flashed_messages() %}
+            <h3><strong>{{ message }}</strong></h3>
+         {% endfor %}
+
+    <form action="/login" method="POST">
+        <label for="email">Email</label><br>
+        <input id="email" type="email" name="email" placeholder="email"><br><br>
+
+        <label for="password">Password</label><br>
+        <input id="password" type="password" name="password" placeholder="password"><br><br>
+
+        <button type="submit">Connect</button>
+    </form>
+</body>
+
+
+{% endblock %}

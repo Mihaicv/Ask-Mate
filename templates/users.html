@@ -1,0 +1,34 @@
+
+{% extends 'index.html' %}
+{% block users %}
+<body class="container pt-3">
+        <table class="table">
+        <thead>
+            <tr class="thead-dark">
+                <th>Email user</h></th>
+                 <th>Registration date</h3></th>
+                 <th> Asked questions</h3></th>
+                 <th>Answers</h3></th>
+                 <th>Comments</h3></th>
+                 <th>Reputation </h3></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in list_users %}
+            <tr>
+                <td><a href="/user/{{user.id_user}}">{{ user.email_user }}</a> </td>
+                <td>{{ user.submission_time }}</td>
+                <td>{{ user.count_questions }}</td>
+                <td>{{ user.count_answers }}</td>
+                <td>{{ user.count_comments }}</td>
+                <td>{{ user.reputation }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        </table>
+
+
+</body>
+
+
+{% endblock %}

@@ -1,0 +1,66 @@
+
+body{
+    font-family: Verdana!important;
+    font-size: 17px !important;
+    line-height: normal !important;
+}
+
+.jumbotron{
+    background: lightgrey!important;
+     width: 100% !important;
+}
+.fa fa-thumbs-up {
+  font-size: 50px !important;
+  cursor: pointer!important;
+  user-select: none!important;
+}
+
+.fa fa-thumbs-up:hover {
+  color: blue !important;
+}
+
+{
+  box-sizing: border-box;
+}
+
+/* Style the search field */
+form.example input[type=text] {
+  padding: 5px;
+  font-size: 17px;
+  border: 1px solid grey;
+  float: left;
+  width: 20%;
+  background: #f1f1f1;
+}
+
+/* Style the submit button */
+form.example button {
+  float: left;
+  width: 5%;
+  padding: 3px;
+  background: #2196F3;
+  color: white;
+  font-size: 23px;
+  border: 0 !important;
+  border-left: none; /* Prevent double borders */
+  cursor: pointer;
+}
+
+form.example button:hover {
+  background: #0b7dda;
+}
+
+th {
+    text-align: center !important;
+}
+
+h3 {
+    text-align: center !important;
+  color: midnightblue !important;
+}
+
+h4 {
+    text-align: left !important;
+  color: dark !important;
+}
+

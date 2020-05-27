@@ -2,7 +2,7 @@
 {% extends 'index.html' %}
 {% block all_questions %}
 
-<body>
+<body class="container pt-3">
 
    {% if not searching %}
     <a href="/list">See all questions</a>
@@ -10,12 +10,12 @@
     <a href="/">Back to latest questions</a>
     {% endif %}
 
-            <form action="/search", method="GET">
-                <label for="search"></label>
-                <input id="search" type="text" name="search_text" placeholder="what you looking for"</input>
-                <button type="submit">Search</button>
-            </form>
-            <div class="dropdown">
+
+            {% for message in get_flashed_messages() %}
+            <h3>{{ message }}</h3>
+             {% endfor %}
+<hr>
+            <div >
                 <form action="/list" method="POST">
                     <label for="sort">Sort by:</label><br>
                     <select id="sort" name="sort" class="form-control form-control-sm">
@@ -31,12 +31,14 @@
                         <option {% if direction == 'asc' %}selected{% endif %} value="asc">Ascending</option>
                         <option {% if direction == 'desc' %}selected{% endif %} value="desc">Descending</option>
                     </select><br>
-                    <button type="submit" >Apply</button>
+                    <button type="submit"class="btn btn-outline-primary">Apply</button>
                 </form>
             </div>
 
+    <div class="jumbotron">
         <table class="table">
-                <thead class="thead-dark">
+
+                <thead class="thead-dark" >
 {#                    <th><h4>ID</h4></th>#}
                     <th><h4>Submission time</h4></th>
                     <th><h4>View number</h4></th>
@@ -53,8 +55,8 @@
                             <td> {{ question['submission_time'] }}</td>
                             <td> {{ question['view_number'] }}</td>
                             <td> {{ question['vote_number'] }}</td>
-                            <td><button type="button"><a href="/question/{{question['id']}}/vote_up">VOTE UP</a></td>
-                            <td><button type="button"><a href="/question/{{question['id']}}/vote_down">VOTE DOWN</a></button></td>
+                            <td><a href="/question/{{question['id']}}/vote_up" class="mt-4 mr-2 btn btn-primary btn-sm float-right"><i class="fa fa-thumbs-up"></i> </a></td>
+                            <td><a href="/question/{{question['id']}}/vote_down" class="mt-4 btn btn-danger btn-sm float-right"><i class="fa fa-thumbs-down"></i></a></td>
                             <td> <a href="/question/{{ question['id'] }}">{{ question['title'] }}</a></td>
                             <td> {{ question['message'] }}</td>
                             <td> <img src="{{ question['image'] }}" height="80"></td>
@@ -63,7 +65,8 @@
                         {% endfor %}
 
         </table>
-        <button><a href="/add_new_question">Add new question</a></button>
+    </div>
+        <button class="btn btn-outline-success"><a href="/add_new_question">Add new question</a></button>
 
 
 </body>

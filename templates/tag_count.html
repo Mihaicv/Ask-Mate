@@ -1,0 +1,20 @@
+{% extends 'index.html' %}
+{% block tag_count %}
+<body class="container pt-3">
+    <p><h3>Tag counting to questions</h3></p>
+    <table class="table">
+        <thead>
+            <tr class="thead-dark">
+                <th><h4><strong>Tag</strong></h4></th>
+                <th><h4><strong>Number questions</strong></h4></th>
+            </tr>
+        </thead>
+        {% for tag in page_tag %}
+            <tr>
+                <td>{{ tag.name }}</td>
+                <td> {{ tag.count_question }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+</body>
+{% endblock %}

@@ -3,6 +3,7 @@ from typing import List, Dict
 from psycopg2 import sql
 from psycopg2.extras import RealDictCursor
 import random
+from flask import session
 import database_common
 import time
 
@@ -27,7 +28,8 @@ def get_last_questions(cursor: RealDictCursor) -> list:
 @database_common.connection_handler
 def get_tabel_comment(cursor: RealDictCursor) -> list:
     query="""
-        SELECT * FROM comment"""
+        SELECT * FROM comment
+        """
     cursor.execute(query)
     return cursor.fetchall() 
 
@@ -79,13 +81,13 @@ def get_tag_id(cursor: RealDictCursor, name) -> list:
 
 @database_common.connection_handler
 def add_question(cursor: RealDictCursor, submission_time: int, view_number: int, vote_number: int, title, message: str,
-                 image: str) -> list:
+                 image: str, id_user) -> list:
     query = """
-        INSERT INTO question (submission_time, view_number, vote_number, title, message, image)
-            VALUES (%(submission_time)s,%(view_number)s,%(vote_number)s,%(title)s,%(message)s,%(image)s)
+        INSERT INTO question (submission_time, view_number, vote_number, title, message, image,id_user)
+            VALUES (%(submission_time)s,%(view_number)s,%(vote_number)s,%(title)s,%(message)s,%(image)s,%(id_user)s)
         """
     data = {'submission_time': submission_time, 'view_number': view_number, 'vote_number': vote_number,
-            'title': title, 'message': message, 'image': image
+            'title': title, 'message': message, 'image': image, 'id_user':id_user
             }
     cursor.execute(query, data)
     update_query = """
@@ -97,13 +99,13 @@ def add_question(cursor: RealDictCursor, submission_time: int, view_number: int,
 
 @database_common.connection_handler
 def new_answer(cursor: RealDictCursor, submission_time: str, vote_number: int, question_id: int, message: str,
-               image: str) -> list:
+               image: str,id_user) -> list:
     query = """
-            INSERT INTO answer(submission_time,vote_number, question_id,message, image)
-                VALUES (%(submission_time)s,%(vote_number)s,%(question_id)s,%(message)s,%(image)s)
+            INSERT INTO answer(submission_time,vote_number, question_id,message, image,id_user)
+                VALUES (%(submission_time)s,%(vote_number)s,%(question_id)s,%(message)s,%(image)s,%(id_user)s)
             """
     data = {'submission_time': submission_time, 'vote_number': vote_number, 'question_id': question_id,
-            'message': message, 'image': image
+            'message': message, 'image': image,'id_user':id_user
             }
     cursor.execute(query, data)
     update_query = """
@@ -263,12 +265,12 @@ def view_question(cursor: RealDictCursor, id, view_number) -> list:
     cursor.execute(query, data)
 
 @database_common.connection_handler
-def add_comment_question(cursor: RealDictCursor, question_id, message,submission_time) -> list:
+def add_comment_question(cursor: RealDictCursor, question_id, message,submission_time,id_user) -> list:
     query = """
-        INSERT INTO comment (question_id, message,submission_time)
-        VALUES (%(question_id)s, %(message)s,%(submission_time)s)
+        INSERT INTO comment (question_id, message,submission_time,id_user)
+        VALUES (%(question_id)s, %(message)s,%(submission_time)s,%(id_user)s)
         """
-    data={'question_id':question_id,'message':message, 'submission_time':submission_time}
+    data={'question_id':question_id,'message':message, 'submission_time':submission_time,'id_user':id_user}
     cursor.execute(query, data)
     return "Comment added"
 
@@ -365,6 +367,126 @@ def delete_tag(cursor: RealDictCursor, question_id, tag_id) -> list:
     args = {'question_id': question_id, 'tag_id': tag_id}
     cursor.execute(query, args)
     return "Tag deleted"
+
+
+@database_common.connection_handler
+def get_users_register(cursor: RealDictCursor) -> list:
+    query= """
+        SELECT * FROM users
+    """
+    cursor.execute(query)
+    return cursor.fetchall()
+
+@database_common.connection_handler
+def email_exist(cursor:  RealDictCursor, email_user) -> list:
+
+    query = """
+            SELECT *
+            FROM users
+            WHERE email_user = %(email_user)s;
+        """
+    cursor.execute(query, {'email_user': email_user})
+    return cursor.fetchone()
+
+@database_common.connection_handler
+def register_user(cursor:  RealDictCursor,submission_time, email_user, password_user) -> list:
+    if email_exist(email_user):
+        return False
+    query="""
+    INSERT INTO users(submission_time, email_user, password_user,count_questions,count_answers,count_comments,reputation)  VALUES (%(submission_time)s,%(email_user)s,%(password_user)s,0,0,0,0);
+    """
+    data={'submission_time':submission_time,'email_user':email_user,'password_user':password_user}
+    cursor.execute(query,data)
+
+@database_common.connection_handler
+def check_login_user(cursor:  RealDictCursor, email_user, password_user) -> list:
+    query="""
+        SELECT email_user
+        FROM users
+        WHERE email_user=%(email_user)s AND password_user=%(password_user)s;
+    """
+    data={'email_user':email_user,'password_user':password_user }
+    cursor.execute(query,data)
+    return cursor.fetchone()
+
+@database_common.connection_handler
+def find_id_user(cursor:  RealDictCursor, id_user) -> list:
+    query = """
+            SELECT *
+            FROM users
+            WHERE id_user = %(id_user)s;
+        """
+    cursor.execute(query, {'id_user': id_user})
+    return cursor.fetchone()
+
+@database_common.connection_handler
+def find_questions_id_user(cursor:  RealDictCursor, id_user) -> list:
+    query = """
+                SELECT submission_time, view_number, vote_number, title, message, image, id_user
+                FROM question
+                WHERE id_user = %(id_user)s;
+            """
+    cursor.execute(query, {'id_user': id_user})
+    return cursor.fetchall()
+
+@database_common.connection_handler
+def find_answer_id_user(cursor:  RealDictCursor, id_user) -> list:
+    query = """
+                SELECT question.title, answer.submission_time, answer.vote_number, answer.message, answer.image
+                FROM question JOIN answer
+                ON question.id = answer.question_id
+                WHERE answer.id_user = %(id_user)s;
+            """
+    cursor.execute(query, {'id_user': id_user})
+    return cursor.fetchall()
+
+@database_common.connection_handler
+def find_comment_id_user(cursor:  RealDictCursor, id_user) -> list:
+    query = """
+                SELECT question.title, comment.message, comment.submission_time, comment.edited_count
+                FROM question JOIN comment
+                ON question.id = comment.question_id
+                WHERE comment.id_user = %(id_user)s;
+            """
+    cursor.execute(query, {'id_user': id_user})
+    return cursor.fetchall()
+
+@database_common.connection_handler
+def update_users_questions(cursor:  RealDictCursor, id_user) -> list:
+    query="""
+        UPDATE users
+        SET count_questions=count_questions+1
+        WHERE id_user=%(id_user)s;
+    """
+    cursor.execute(query, {'id_user': id_user})
+
+@database_common.connection_handler
+def update_users_answers(cursor:  RealDictCursor, id_user) -> list:
+    query="""
+        UPDATE users
+        SET count_answers=count_answers+1
+        WHERE id_user=%(id_user)s;
+    """
+    cursor.execute(query, {'id_user': id_user})
+
+@database_common.connection_handler
+def update_users_comments(cursor:  RealDictCursor, id_user) -> list:
+    query="""
+        UPDATE users
+        SET count_comments=count_comments+1
+        WHERE id_user=%(id_user)s;
+    """
+    cursor.execute(query, {'id_user': id_user})
+
+@database_common.connection_handler
+def tags_count(cursor:  RealDictCursor) -> list:
+    query="""
+        SELECT tag.name, count(question_tag.tag_id) as count_question FROM tag JOIN question_tag
+        ON tag.id=question_tag.tag_id
+        GROUP BY name;
+    """
+    cursor.execute(query)
+    return cursor.fetchall()
 
 
 
