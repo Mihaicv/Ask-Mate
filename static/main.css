@@ -4,11 +4,12 @@ body{
     font-size: 17px !important;
     line-height: normal !important;
 }
-
-.jumbotron{
-    background: lightgrey!important;
-     width: 100% !important;
+.jumbotron {
+    background: lightgrey !important;
+    width: 100% !important;
+    border-radius: 20px !important;
 }
+
 .fa fa-thumbs-up {
   font-size: 50px !important;
   cursor: pointer!important;
@@ -63,4 +64,3 @@ h4 {
     text-align: left !important;
   color: dark !important;
 }
-
