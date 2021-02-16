@@ -286,24 +286,7 @@ def delete_coment_by_id_qu(cursor: RealDictCursor, comment_id) -> list:
 
 @database_common.connection_handler
 def search(cursor: RealDictCursor, phrase) -> list:
-#     """
-# another safer option
-#      query = """
-#             SELECT DISTINCT question.id AS id, question.submission_time AS submission_time ,
-# question.view_number AS view_number, question.vote_number AS vote_number, question.title AS title,
-# question.message AS message, question.image AS image, answer.id AS answer_id,
-# answer.question_id AS answer_question_id, answer.submission_time AS answer_submission_time,
-# answer.vote_number AS answer_vote_number, answer.message AS answer_message, answer.image AS answer_image
-#             FROM question
-#             LEFT OUTER JOIN answer
-#             ON question.id = answer.question_id
-#             WHERE question.title LIKE %(phrase)s
-#             OR question.message LIKE %(phrase)s
-#             OR answer.message LIKE %(phrase)s;
-#             """
-#     args = ({'phrase': '%' + phrase + '%'})
-#     cursor.execute(query, args)
-#     """
+
 
     query="""
         SELECT * FROM question WHERE title ILIKE '%{}%' OR message ILIKE '%{}%'

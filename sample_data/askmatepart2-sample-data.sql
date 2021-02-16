@@ -37,7 +37,8 @@ CREATE TABLE question (
 
     message text,
 
-    image text
+    image text,
+    id_user integer
 
 );
 
@@ -107,8 +108,31 @@ CREATE TABLE tag (
 
 );
 
+DROP TABLE IF EXISTS  public.users;
+
+CREATE TABLE users(
+     id_user serial NOT NULL PRIMARY KEY ,
+     submission_time timestamp without time zone,
+     email_user text,
+     password_user integer,
+     count_questions integer,
+     count_answers integer,
+     count_comments integer,
+     reputation integer
+);
+ALTER TABLE question
+
+    ADD COLUMN id_user integer;
 
 
+ALTER TABLE answer
+
+    ADD COLUMN id_user integer;
+
+
+ALTER TABLE comment
+
+    ADD COLUMN id_user integer;
 
 
 ALTER TABLE ONLY answer

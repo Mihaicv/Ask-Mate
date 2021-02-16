@@ -1,6 +1,6 @@
 
 body{
-    font-family: Verdana!important;
+    font-family: "Segoe UI Emoji"!important;
     font-size: 17px !important;
     line-height: normal !important;
 }
@@ -54,6 +54,8 @@ form.example button:hover {
 th {
     text-align: center !important;
 }
+.table{
+}
 
 h3 {
     text-align: center !important;
@@ -64,3 +66,6 @@ h4 {
     text-align: left !important;
   color: dark !important;
 }
+
+
+

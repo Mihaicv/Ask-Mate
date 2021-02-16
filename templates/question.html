@@ -2,6 +2,7 @@
 {% block question %}
 <body class="container pt-3" >
 
+
         <h3>Question:<strong>{{ question['title'] }}</strong></h3>
 
         {% for message in get_flashed_messages() %}
@@ -34,7 +35,7 @@
                  <td> {{ question['vote_number'] }}</td>
                  <th>{{ question['title'] }}</th>
                  <th>{{ question['message'] }}</th>
-                 <th><img src="{{ question['image'] }}" height="100"></th>
+                 <th><img src="{{ question['image'] }}" height="80" ></th>
          </table>
          <button type="button" class="mt-4 btn btn-outline-info btn-sm"><a href="/question/{{question['id']}}/edit"> Edit question</a></button>
          <button type="button" class="mt-4 btn btn-outline-danger btn-sm"><a href="/question/{{question['id']}}/delete"> Delete question</a></button><br>
@@ -54,7 +55,7 @@
                     {%endfor%}
             </tr>
          </table>
-         <button type="button" class="mt-4 btn btn-secondary btn-sm"><a href="/question/{{ question['id'] }}/new-comment">Add question comment</a> </button>
+         <button type="button" class="mt-4 btn btn-outline-dark"><a href="/question/{{ question['id'] }}/new-comment">Add question comment</a> </button>
    </div>
     <div class="jumbotron">
         <div><h4>Answers comment</h4></div>
@@ -71,8 +72,8 @@
             <tr>
                 <td><strong>{{item.submission_time}}</strong></td>
                 <td><strong>{{item.message}}</strong></td>
-                <td>{{item.vote_number}}<br><a href="/answer/{{item['id']}}/vote_up" class="mt-4 mr-2 btn btn-primary btn-sm float-right"><i class="fa fa-thumbs-up"></i> </a> <a href="/answer/{{item['id']}}/vote_down" class="mt-4 mr-2 btn btn-danger btn-sm float-right"><i class="fa fa-thumbs-down"></i></a><button class="mt-4 mr-2 btn btn-outline-danger btn-sm"> <a href="/answer/{{item['id']}}/delete">DELETE</a></button><button class="mt-4 mr-2 btn btn-outline-info btn-sm"><a href="/answer/{{item['id']}}/edit"> EDIT ANSWER</a></button><button type="button" class="mt-4 btn btn-secondary btn-sm"><a href="/answer/{{ item.id }}/new-comment">Add comment answer</a></button></td>
-                <td><img src="{{item['image']}}" height="60"></td>
+                <td>{{item.vote_number}}<br><a href="/answer/{{item['id']}}/vote_up" class="mt-4 mr-2 btn btn-primary btn-sm float-right"><i class="fa fa-thumbs-up"></i> </a> <a href="/answer/{{item['id']}}/vote_down" class="mt-4 mr-2 btn btn-danger btn-sm float-right"><i class="fa fa-thumbs-down"></i></a><button class="mt-4 mr-2 btn btn-outline-danger btn-sm"> <a href="/answer/{{item['id']}}/delete">DELETE</a></button><button class="mt-4 mr-2 btn btn-outline-info btn-sm"><a href="/answer/{{item['id']}}/edit"> EDIT ANSWER</a></button><button type="button" class="mt-4 btn btn-outline-dark"><a href="/answer/{{ item.id }}/new-comment">Add comment answer</a></button></td>
+                <td><img src="{{item['image']}}" height="80" width="180"></td>
             </tr>
 
 {##}
@@ -88,7 +89,7 @@
              {%endfor%}
             </tr>
         </table>
-        <button type="button" class="mt-4 btn btn-secondary btn-sm"><a href="/question/{{question['id']}}/new_answer"'> Add new answer</a></button>
+        <button type="button" class="mt-4 btn btn-outline-dark"><a href="/question/{{question['id']}}/new_answer"'> Add new answer</a></button>
     </div>
 </body>
 {% endblock %}
