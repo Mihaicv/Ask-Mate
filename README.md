@@ -10,5 +10,6 @@ On question's page the users can add comment, delete comment, edit comment. Edit
 <img src="images/poza2.jpg" width="400" >
 
 The comments can receive answers. Also, the answers can be deleted, edited, voted.
+
 <img src="images/poza3.jpg" width="400" >
 
