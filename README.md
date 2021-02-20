@@ -9,15 +9,15 @@ On question's page the users can add comment, delete comment, edit comment. Edit
 
 <img src="images/poza2.jpg" width="400" >
 
-The comments at questions can receive answers. Also, the answers can be deleted, edited, voted and recive replay.
+The questions's comments can be replied with answers. Also, the answers can be deleted, edited, voted and can be replaied.
 
 <img src="images/poza3.jpg" width="400" >
 
 
 Other features of application witch users can see:
-- list users can use application
-- users can add tags of questions and can see list of tags
-- the questions can be sorted about: submissionn time,views, votes, message, title. Also, this serching can be ascendin or descending
-- users can search about letters
+- the users's list who use application
+- the users can add tags of questions and can see list of tags
+- the questions can be sorted such as: submissionn time,views, votes, message, title. In addition, the searching can be ascending or descending
+- users can search about words or letters
 
 
